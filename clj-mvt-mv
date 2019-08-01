@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ -d ."git" ]; then
+  echo "Error: Delete the .git directory for this project and then rerun $0"
+  exit 1
+elif [ $# -eq 1 ]; then
+  mv src/clj_mvt_eg/ "src/$1/"
+  mv test/clj_mvt_eg/ "test/$1/"
+  find . -type f -exec sed -i "s/myapp/$1/g" {} +
+else
+  echo "Usage: $0 new_project_name"
+  exit 1
+fi

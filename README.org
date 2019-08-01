@@ -1,0 +1,183 @@
+#+title:   clj-mvt-eg
+#+startup: showall
+#+OPTIONS: toc:nil author:nil timestamp:nil
+
+* Overview
+The [[https://github.com/davidneu/clj-mvt][clj-mvt]] /minimum viable toolset/, library provides a small set of
+Clojure tools that combined with emacs and the [[https://github.com/davidneu/clj-mvt-el][clj-mvt-el]], [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]],
+and [[https://github.com/clojure-emacs/inf-clojure][inf-clojure]] emacs packages, provide a simple REPL driven
+development environment.  This project provides installation and usage
+instructions for getting started quickly.
+
+* Installation
+  - Follow the instructions at [[https://github.com/davidneu/clj-mvt-el][clj-mvt-el]] to install the clj-mvt-el
+    emacs package.
+  - Follow the instructions at [[https://clojure.org/guides/getting_started][Clojure - Getting Started]] to install
+    the Clojure CLI tools.
+
+* Getting Started
+  - Run emacs
+  - M-x eshell
+  - git clone https://github.com/mvt-clj-eg
+  - cd mvt-clj-eg
+  - M-x ansi-term
+    - Run program: /bin/bash
+  - clojure -A:socket
+  - Switch to the buffer \ast{}eshell\ast{}
+  - M-x inf-clojure-connect
+    - host: 127.0.0.1
+    - port: 5555
+  - user=> (dev)
+
+* Run a Function
+  - dev=> (clj-mvt-eg.core/make-date 2019 12 31)
+
+* Define a Var
+  - dev=> (def new-years-eve (clj-mvt-eg.core/make-date 2019 12 31))
+
+* Reload all Source with Changes or that Depend on Changes
+  - Open file src/clj\under{}mvt\under{}eg/core.clj
+  - Uncomment the make-new-years-day function definition
+  - C-r
+  - Save changes
+  - dev=> (clj-mvt-eg.core/make-new-years-day)
+
+* Only Reload the Current Buffer
+  - Switch to the buffer core.clj
+  - Change the make-new-years-day function definition to be
+    #+BEGIN_SRC clojure
+    (defn make-new-years-day [year]
+      (make-date year 12 31))
+     #+END_SRC
+  - C-c C-l
+  - Save changes
+  - dev=> (clj-mvt-eg.core/make-new-years-day 2019)
+
+* Only Reload the Current S-expression
+  - Switch to the buffer core.clj
+  - Change the make-new-years-day function definition to be
+    #+BEGIN_SRC clojure
+    (defn make-new-years-day
+      ([]
+       (make-new-years-day (jt/as (jt/local-date) :year)))
+      ([year]
+       (make-date year 12 31)))
+     #+END_SRC
+  - Move the cursor immediately after the last parenthesis in the
+    function definition.
+  - C-c C-e or C-x C-e
+  - Save changes
+  - dev=> (clj-mvt-eg.core/make-new-years-day)
+
+* Use a Previously Defined Var
+  - Switch to the buffer \ast{}inf-clojure\ast{}
+  - dev=> (= new-years-eve (clj-mvt-eg.core/make-new-years-day 2019))
+
+* Go from Stacktrace to Source
+  - Switch to the buffer \ast{}inf-clojure\ast{}
+  - dev=> (clj-mvt-eg.core/stacktrace-example)
+  - In the stacktrace, move to a line associated with the clj-mvt-eg.core/stacktrace-example function
+  - C-<return>
+  - Switch to the buffer \ast{}inf-clojure\ast{}
+  - In the stacktrace, move to a line associated with the java-time.local/local-date function
+  - C-<return>
+
+* Generate a :compile-syntax-check Phase Error
+  - Switch to the buffer \ast{}core\ast{}
+  - Uncomment the compile-syntax-check-phase-error-example function definition
+  - C-r
+  - Move to the line that starts with "Location: ..."
+  - C-<return>
+  - Comment out the compile-syntax-check-phase-error-example function definition
+
+* Generate a :macro-syntax-check Phase Error
+  - Switch to the buffer \ast{}core\ast{}
+  - Uncomment the macro-syntax-check-phase-error-example function definition
+  - C-r
+  - Move to the line that starts with "Location: ..."
+  - C-<return>
+  - Comment out the macro-syntax-check-phase-error-example function definition
+
+* Use the Debug Repl
+  - Switch to the buffer \ast{}inf-clojure\ast{}
+  - dev=> (break-on)
+  - dev=> (clj-mvt-eg.core/break-example)
+  - dev:debug=> n
+  - dev:debug=> d
+  - dev:debug=> (zero? d)
+  - dev:debug=> :exit
+  - dev=> (break-off)
+
+* Use the Debug Repl in a Loop
+  - Switch to the buffer \ast{}inf-clojure\ast{}
+  - dev=> (break-on)
+  - dev=> (clj-mvt-eg.core/break-loop-example)
+  - dev:debug=> n
+  - dev:debug=> :exit
+  - dev:debug=> n
+  - dev:debug=> :exit
+  - dev:debug=> n
+  - dev:debug=> :quit
+  - dev=> (break-off)
+
+* Run Tests
+  - Switch to the buffer \ast{}inf-clojure\ast{} or \ast{}core.clj\ast{}
+  - C-t
+
+* Notice el-doc Mode
+  - Switch to the buffer \ast{}inf-clojure\ast{}
+  - dev=> (concat \under{} )
+  - Leave the cursor in the position show
+  - Notice the hint in the emacs minibuffer
+
+* Use Tab Completion
+  - Switch to the buffer \ast{}inf-clojure\ast{}
+  - dev=> (con\under{} )
+  - Leave the cursor in the position show
+  - <M-tab> displays a list of possible completions
+
+* Use a Local Dependency
+  - Open file deps.edn
+  - Follow the instructions on how to use a local dependency
+
+* Use a Git Dependency
+  - Open file deps.edn
+  - Follow the instructions on how to use a git dependency
+
+* Run Tests from the Command Line
+  - Switch to the buffer \ast{}eshell\ast{}
+  - clojure -A:test
+
+* Create a pom.xml File
+  - Switch to the buffer deps.edn
+  - Change the version string appearing in the :pom, :uberjar, :jar,
+    :install, and :deploy entries so that they reflect the current
+    version.
+  - Switch to the buffer \ast{}eshell\ast{}
+  - clojure -A:pom
+
+* Create and Run an Uberjar
+  - Follow the "Create a pom.xml File" instructions
+  - clojure -A:uberjar
+  - java -cp clj-mvt-eg-1.0.0-alpha-standalone.jar clojure.main -m clj-mvt-eg.core
+
+* Create a JAR File
+  - Follow the "Create a pom.xml File" instructions
+  - clojure -A:jar
+
+* Install JAR File in Local Maven Repo
+  - Follow the "Create a pom.xml File" instructions
+  - Follow the "Create a JAR File" instructions
+  - clojure -A:install
+
+* Deploy JAR File to Clojars
+  - Follow the "Create a pom.xml File" instructions
+  - Follow the "Create a JAR File" instructions
+  - CLOJARS_USERNAME=username CLOJARS_PASSWORD=password clojure -A:deploy
+
+* License
+
+Copyright © 2019 David J. Neu
+
+Released under the MIT license.
+
