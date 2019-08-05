@@ -10,7 +10,7 @@
   
   ;; To use this git dependency
   ;; - Uncomment the next line and comment out all other clojure.java-time dependencies
-  ;; clojure.java-time {:git/url "https://github.com/dm3/clojure.java-time" :sha "FULL-COMMIT-SHA"}
+  ;; clojure.java-time {:git/url "https://github.com/dm3/clojure.java-time" :sha "707f16daf19e04cf182cc532a2cce8db170ea178"}
 
   ;; To use this local dependency
   ;; - cd /tmp
