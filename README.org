@@ -3,11 +3,11 @@
 #+OPTIONS: toc:nil author:nil timestamp:nil
 
 * Overview
-The [[https://github.com/davidneu/clj-mvt][clj-mvt]] /minimum viable toolset/, library provides a small set of
-Clojure tools that combined with emacs and the [[https://github.com/davidneu/clj-mvt-el][clj-mvt-el]], [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]],
-and [[https://github.com/clojure-emacs/inf-clojure][inf-clojure]] emacs packages, provide a simple REPL driven
-development environment.  This project provides installation and usage
-instructions for getting started quickly.
+The [[https://github.com/davidneu/clj-mvt][clj-mvt]], /minimum viable toolset/, library provides a small set of
+Clojure tools that combined with emacs and the [[https://github.com/davidneu/clj-mvt-el][clj-mvt-el]],
+[[https://github.com/clojure-emacs/clojure-mode][clojure-mode]], and [[https://github.com/clojure-emacs/inf-clojure][inf-clojure]] emacs packages, provide a simple REPL
+driven development environment.  This project provides installation
+and usage instructions for getting started quickly.
 
 * Installation
   - Follow the instructions at [[https://github.com/davidneu/clj-mvt-el][clj-mvt-el]] to install the clj-mvt-el
@@ -18,8 +18,8 @@ instructions for getting started quickly.
 * Getting Started
   - Run emacs
   - M-x eshell
-  - git clone https://github.com/mvt-clj-eg
-  - cd mvt-clj-eg
+  - git clone https://github.com/clj-mvt-eg
+  - cd clj-mvt-eg
   - M-x ansi-term
     - Run program: /bin/bash
   - clojure -A:socket
@@ -48,7 +48,7 @@ instructions for getting started quickly.
     #+BEGIN_SRC clojure
     (defn make-new-years-day [year]
       (make-date year 12 31))
-     #+END_SRC
+    #+END_SRC
   - C-c C-l
   - Save changes
   - dev=> (clj-mvt-eg.core/make-new-years-day 2019)
@@ -62,7 +62,7 @@ instructions for getting started quickly.
        (make-new-years-day (jt/as (jt/local-date) :year)))
       ([year]
        (make-date year 12 31)))
-     #+END_SRC
+    #+END_SRC
   - Move the cursor immediately after the last parenthesis in the
     function definition.
   - C-c C-e or C-x C-e
@@ -173,7 +173,7 @@ instructions for getting started quickly.
 * Deploy JAR File to Clojars
   - Follow the "Create a pom.xml File" instructions
   - Follow the "Create a JAR File" instructions
-  - CLOJARS_USERNAME=username CLOJARS_PASSWORD=password clojure -A:deploy
+  - CLOJARS\under{}USERNAME=username CLOJARS\under{}PASSWORD=password clojure -A:deploy
 
 * License
 
