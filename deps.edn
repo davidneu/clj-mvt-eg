@@ -22,8 +22,8 @@
   clojure.java-time {:mvn/version "0.3.2"}}
  
  :aliases
- {:socket {:jvm-opts ["-Xms12g"
-                      "-Xmx12g"
+ {:socket {:jvm-opts ["-Xms2g"
+                      "-Xmx2g"
                       "-server"
                       "-Dclojure.server.repl={:port,5555,:accept,clj-mvt.repl/socket-repl}"]}
   
